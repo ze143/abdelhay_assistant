@@ -8,6 +8,12 @@ const sections = [
       { to: "/customers", label: "العملاء", icon: "fa-user-plus", end: true },
       { to: "/debts", label: "مديونيات العملاء", icon: "fa-users", end: true },
       { to: "/debts/all", label: "سجل المديونيات", icon: "fa-list", end: true },
+      {
+        to: "/payments",
+        label: "سجل المدفوعات",
+        icon: "fa-money-bill-wave",
+        end: true,
+      },
     ],
   },
   {
@@ -15,7 +21,12 @@ const sections = [
     icon: "fa-hard-hat",
     links: [
       { to: "/workers", label: "العمال", icon: "fa-user-cog", end: true },
-      { to: "/closings", label: "أرشيف التقفيلات", icon: "fa-archive", end: true },
+      {
+        to: "/closings",
+        label: "أرشيف التقفيلات",
+        icon: "fa-archive",
+        end: true,
+      },
     ],
   },
 ];

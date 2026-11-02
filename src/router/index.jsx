@@ -7,6 +7,7 @@ import AllClosingsPage from '../pages/workers/AllClosingsPage';
 import QuickTransactionPage from '../pages/workers/QuickTransactionPage';
 import CustomersPage from '../pages/customers/CustomersPage';
 import CustomerProfilePage from '../pages/customers/CustomerProfilePage';
+import PaymentsPage from '../pages/customers/PaymentsPage';
 import CustomersDebtsPage from '../pages/debts/CustomersDebtsPage';
 import AllDebtsPage from '../pages/debts/AllDebtsPage';
 
@@ -23,6 +24,7 @@ export const router = createBrowserRouter([
       { path: 'closings', element: <AllClosingsPage /> },
       { path: 'customers', element: <CustomersPage /> },
       { path: 'customers/:id', element: <CustomerProfilePage /> },
+      { path: 'payments', element: <PaymentsPage /> },
       { path: 'debts', element: <CustomersDebtsPage /> },
       { path: 'debts/all', element: <AllDebtsPage /> },
     ],
