@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import { useAlerts } from "../../hooks/useAlerts";
 
 const sections = [
   {
@@ -29,9 +30,67 @@ const sections = [
       },
     ],
   },
+  {
+    title: "المخزون والموردين",
+    icon: "fa-boxes",
+    links: [
+      {
+        to: "/inventory-dashboard",
+        label: "لوحة المخزون",
+        icon: "fa-chart-line",
+        end: true,
+      },
+      { to: "/inventory", label: "المخزون", icon: "fa-boxes", end: true },
+      {
+        to: "/inventory/supplies",
+        label: "التوريدات",
+        icon: "fa-truck",
+        end: true,
+      },
+      {
+        to: "/inventory/withdrawals",
+        label: "السحوبات",
+        icon: "fa-download",
+        end: true,
+      },
+      {
+        to: "/inventory/accounts",
+        label: "حسابات الموردين",
+        icon: "fa-hand-holding-usd",
+        end: true,
+      },
+      {
+        to: "/inventory/conversions",
+        label: "التحويلات",
+        icon: "fa-exchange-alt",
+        end: true,
+      },
+      {
+        to: "/inventory/reports",
+        label: "التقارير",
+        icon: "fa-chart-bar",
+        end: true,
+      },
+      {
+        to: "/inventory/stocktake",
+        label: "الجرد الدوري",
+        icon: "fa-clipboard-check",
+        end: true,
+      },
+      {
+        to: "/inventory/settings",
+        label: "الإعدادات",
+        icon: "fa-cog",
+        end: true,
+      },
+    ],
+  },
 ];
 
 export default function Sidebar({ open, onClose }) {
+  const { lowStock, supplierDebts, pendingTransactions, totalCount } =
+    useAlerts();
+
   return (
     <>
       {open && (
@@ -54,7 +113,7 @@ export default function Sidebar({ open, onClose }) {
         </div>
 
         <nav className="p-4 overflow-y-auto h-[calc(100%-100px)]">
-          {/* إضافة سريعة — الصفحة الافتراضية */}
+          {/* إضافة سريعة */}
           <NavLink
             to="/"
             end
@@ -78,12 +137,14 @@ export default function Sidebar({ open, onClose }) {
             end
             onClick={onClose}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-4 py-2.5 rounded-xl mb-2 text-sm font-medium transition
+              `flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl mb-2 text-sm font-medium transition
               ${isActive ? "bg-primary-600 text-white" : "text-slate-700 hover:bg-primary-50"}`
             }
           >
-            <i className="fas fa-home w-5" />
-            الرئيسية
+            <span className="flex items-center gap-3">
+              <i className="fas fa-home w-5" />
+              الرئيسية
+            </span>
           </NavLink>
 
           {sections.map((section) => (
@@ -92,21 +153,40 @@ export default function Sidebar({ open, onClose }) {
                 <i className={`fas ${section.icon}`} />
                 {section.title}
               </p>
-              {section.links.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.end}
-                  onClick={onClose}
-                  className={({ isActive }) =>
-                    `flex items-center gap-3 px-4 py-2.5 rounded-xl mb-1 text-sm transition
-                    ${isActive ? "bg-primary-600 text-white" : "text-slate-700 hover:bg-primary-50"}`
-                  }
-                >
-                  <i className={`fas ${link.icon} w-5`} />
-                  {link.label}
-                </NavLink>
-              ))}
+              {section.links.map((link) => {
+                const showLowStockBadge =
+                  link.to === "/inventory-dashboard" && lowStock.length > 0;
+                const showDebtsBadge =
+                  link.to === "/inventory/accounts" && supplierDebts.length > 0;
+
+                return (
+                  <NavLink
+                    key={link.to}
+                    to={link.to}
+                    end={link.end}
+                    onClick={onClose}
+                    className={({ isActive }) =>
+                      `flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl mb-1 text-sm transition
+                      ${isActive ? "bg-primary-600 text-white" : "text-slate-700 hover:bg-primary-50"}`
+                    }
+                  >
+                    <span className="flex items-center gap-3">
+                      <i className={`fas ${link.icon} w-5`} />
+                      {link.label}
+                    </span>
+                    {showLowStockBadge && (
+                      <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-red-500 text-white">
+                        {lowStock.length}
+                      </span>
+                    )}
+                    {showDebtsBadge && (
+                      <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold bg-amber-500 text-white">
+                        {supplierDebts.length}
+                      </span>
+                    )}
+                  </NavLink>
+                );
+              })}
             </div>
           ))}
         </nav>

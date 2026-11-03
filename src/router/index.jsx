@@ -10,6 +10,15 @@ import CustomerProfilePage from '../pages/customers/CustomerProfilePage';
 import PaymentsPage from '../pages/customers/PaymentsPage';
 import CustomersDebtsPage from '../pages/debts/CustomersDebtsPage';
 import AllDebtsPage from '../pages/debts/AllDebtsPage';
+import InventoryDashboard from '../pages/inventory/InventoryDashboard';
+import InventoryPage from '../pages/inventory/InventoryPage';
+import SuppliesPage from '../pages/inventory/SuppliesPage';
+import WithdrawalsPage from '../pages/inventory/WithdrawalsPage';
+import SupplierAccountsPage from '../pages/inventory/SupplierAccountsPage';
+import ConversionsPage from '../pages/inventory/ConversionsPage';
+import InventorySettingsPage from '../pages/inventory/InventorySettingsPage';
+import ReportsPage from '../pages/inventory/ReportsPage';
+import StocktakePage from '../pages/inventory/StocktakePage';
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +36,17 @@ export const router = createBrowserRouter([
       { path: 'payments', element: <PaymentsPage /> },
       { path: 'debts', element: <CustomersDebtsPage /> },
       { path: 'debts/all', element: <AllDebtsPage /> },
+
+      // قسم المخزون
+      { path: 'inventory-dashboard', element: <InventoryDashboard /> },
+      { path: 'inventory', element: <InventoryPage /> },
+      { path: 'inventory/supplies', element: <SuppliesPage /> },
+      { path: 'inventory/withdrawals', element: <WithdrawalsPage /> },
+      { path: 'inventory/accounts', element: <SupplierAccountsPage /> },
+      { path: 'inventory/conversions', element: <ConversionsPage /> },
+      { path: 'inventory/settings', element: <InventorySettingsPage /> },
+      { path: 'inventory/reports', element: <ReportsPage /> },
+      { path: 'inventory/stocktake', element: <StocktakePage /> },
     ],
   },
 ]);
